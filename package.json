@@ -1,0 +1,29 @@
+{
+  "name": "frontend-project-46",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "second project on hexlet",
+  "main": "index.js",
+  "bin": {
+    "frontend-project-46": "bin/gendiff.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helgisax/frontend-project-46.git"
+  },
+  "keywords": [
+    "oi"
+  ],
+  "author": "helgisax",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/helgisax/frontend-project-46/issues"
+  },
+  "homepage": "https://github.com/helgisax/frontend-project-46#readme",
+  "dependencies": {
+    "commander": "^10.0.0"
+  }
+}
