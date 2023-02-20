@@ -15,13 +15,13 @@ const getDiff = (filepath1, filepath2) => {
   const difObj = {};
     for (const key of keys) {
       if (!_.has(obj1, key)) {
-        difObj[key] = 'added';
+        difObj[key] = '+';
       } else if (!_.has(obj2, key)) {
-        difObj[key] = 'deleted';
+        difObj[key] = '-';
       } else if (obj1[key] !== obj2[key]) {
-        difObj[key] = 'changed';
+        difObj[key] = 'changed?'; // не очень понимаю как оформить логику, когда ключ есть в обоих объектах, но значения разные и нужно написать две строчки подряд, одну с +, а вторую с -.
       } else {
-        difObj[key] = 'unchanged';
+        difObj[key] = ' ';
       }
     }
     return difObj;
