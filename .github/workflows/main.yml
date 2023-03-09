@@ -1,0 +1,25 @@
+name: genDiffProject
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - run: make test
+      - run: make lint
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+
+          GITHUB_TOKEN: ${{ secrets.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 }}
+          BRANCH: gh-pages
+          FOLDER: public
+          CLEAN: true
+          
+   
