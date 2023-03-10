@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { cwd } from 'process';
 import { resolve } from 'path';
 import getDiff from './src/getDiff.js';
+import getParser from './src/parser.js';
 
 const buildTree = (nodes) => {
   const tree = nodes.map((node) => {
@@ -17,13 +18,13 @@ const buildTree = (nodes) => {
   return `{\n${tree.join('\n')} \n}`;
 };
 
+const getData = (filepath) => readFileSync(resolve(cwd(), (filepath)), 'utf-8');
+const getFormat = (filepath) => filepath.split('.')[1];
+
 const genDiff = (filepath1, filepath2) => {
-  const file1 = readFileSync(resolve(cwd(), (filepath1)), 'utf-8');
-  const file2 = readFileSync(resolve(cwd(), (filepath2)), 'utf-8');
+  const file1 = getParser(getData(filepath1), getFormat(filepath1));
+  const file2 = getParser(getData(filepath2), getFormat(filepath2));
 
-  const obj1 = JSON.parse(file1);
-  const obj2 = JSON.parse(file2);
-
-  return buildTree(getDiff(obj1, obj2));
+  return buildTree(getDiff(file1, file2));
 };
 export default genDiff;
