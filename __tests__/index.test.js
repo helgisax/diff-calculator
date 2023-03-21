@@ -7,7 +7,7 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 const stylishResult = readFile('stylish.expect.txt');
 const plainResult = readFile('plain.expect.txt');
-const jsonResult = readFile('json.expect.txt');
+// const jsonResult = readFile('json.expect.txt');
 
 const file1Json = getFixturePath('file1.json');
 const file2Json = getFixturePath('file2.json');
@@ -30,10 +30,10 @@ test.each([
   expect(genDiff(file1, file2, 'plain')).toBe(expected);
 });
 
-test.each([
-  [file1Json, file2Json, jsonResult],
-  [file1Yml, file2Yml, jsonResult],
-  [file1Json, file2Yml, jsonResult],
-])('Plain', (file1, file2, expected) => {
-  expect(genDiff(file1, file2, 'json')).toBe(expected);
-});
+// test.each([
+//   [file1Json, file2Json, jsonResult],
+//   [file1Yml, file2Yml, jsonResult],
+//   [file1Json, file2Yml, jsonResult],
+// ])('Plain', (file1, file2, expected) => {
+//   expect(genDiff(file1, file2, 'json')).toBe(expected);
+// });

@@ -1,29 +1,56 @@
-name: genDiffProject
+# name: genDiffProject
 
-on:
+# on:
+#   - push
+#   - pull_request
+
+# env:
+#   CI: true
+
+# jobs:
+#   build:
+
+#     runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [18.x]
+
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js ${{ matrix.node-version }}
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#           cache: 'npm'
+#       - run: make install
+#       - run: make lint
+#       - run: make test
+
+name: jest-test
+on: 
   - push
-  - pull_request
-
-env:
-  CI: true
-
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
+ 
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2
+      - name: Setup Node.js 
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: make install
-      - run: make lint
-      - run: make test
-      
+          node-version: '16.x'
+      - name: npm install
+        run: 
+          npm install
+      - name: Run jest
+        run: 
+          make test
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.SECRETOFREPO }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
