@@ -19,9 +19,17 @@ const getDiff = (obj1, obj2) => {
       };
     }
 
-    if (!_.has(obj1, key)) return mknode(key, value2, 'added');
-    if (!_.has(obj2, key)) return mknode(key, value1, 'removed');
-    if (obj1[key] !== obj2[key]) return mknode(key, value2, 'updated', value1);
+    if (!_.has(obj1, key)) {
+      return mknode(key, value2, 'added');
+    }
+
+    if (!_.has(obj2, key)) {
+      return mknode(key, value1, 'removed');
+    }
+
+    if (obj1[key] !== obj2[key]) {
+      return mknode(key, value2, 'updated', value1);
+    }
 
     return mknode(key, value1, 'unchanged');
   });

@@ -22,7 +22,7 @@ const plain = (nodes) => {
       case 'updated':
         return `Property '${parent}${key}' was updated. From ${makeString(oldValue)} to ${makeString(value)}`;
       case 'unchanged':
-        return [];
+        return null;
       default: throw new Error(`Unknown type: ${type}`);
     }
   };
