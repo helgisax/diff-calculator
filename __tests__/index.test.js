@@ -18,7 +18,14 @@ test.each([
   [file1Yml, file2Yml, stylishResult],
   [file1Json, file2Yml, stylishResult],
 ])('Stylish', (file1, file2, expected) => {
-  expect(genDiff(file1, file2, 'stylish')).toBe(expected);
+  const result1 = genDiff(file1, file2, 'stylish');
+  expect(result1).toBe(expected);
+
+  const result2 = genDiff(file1, file2, 'plain');
+  expect(result2).not.toBe(expected);
+
+  const data = genDiff(file1, file2, 'json');
+  expect(() => JSON.parse(data)).not.toThrow();
 });
 
 test.each([
@@ -26,5 +33,12 @@ test.each([
   [file1Yml, file2Yml, plainResult],
   [file1Json, file2Yml, plainResult],
 ])('Plain', (file1, file2, expected) => {
-  expect(genDiff(file1, file2, 'plain')).toBe(expected);
+  const result1 = genDiff(file1, file2, 'plain');
+  expect(result1).toBe(expected);
+
+  const result2 = genDiff(file1, file2, 'stylish');
+  expect(result2).not.toBe(expected);
+
+  const data = genDiff(file1, file2, 'json');
+  expect(() => JSON.parse(data)).not.toThrow();
 });

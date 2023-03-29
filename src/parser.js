@@ -1,15 +1,14 @@
 import { load } from 'js-yaml';
 
-const getParser = (file, format) => {
-  switch (format) {
+const getParser = (data, dataType) => {
+  switch (dataType) {
     case 'json':
-      return JSON.parse(file);
+      return JSON.parse(data);
     case 'yaml':
-      return load(file);
     case 'yml':
-      return load(file);
+      return load(data);
     default:
-      throw new Error(`Wrong format, mate - ${format}`);
+      throw new Error(`Wrong dataType, mate - ${dataType}`);
   }
 };
 export default getParser;
