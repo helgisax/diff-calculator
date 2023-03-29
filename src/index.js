@@ -1,9 +1,9 @@
 import { readFileSync } from 'fs';
 import { cwd } from 'process';
 import path from 'path';
-import getDiff from './src/getDiff.js';
-import getParser from './src/parser.js';
-import getRenderFormat from './src/formatters/index.js';
+import getDiff from './getDiff.js';
+import getParser from './parser.js';
+import getRenderFormat from './formatters/index.js';
 
 const getData = (filepath) => readFileSync(path.resolve(cwd(), (filepath)), 'utf-8');
 const getFormat = (filepath) => path.extname(filepath).slice(1);

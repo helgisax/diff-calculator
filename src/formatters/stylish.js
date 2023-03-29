@@ -15,9 +15,12 @@ const getString = (value, num = 1) => {
   const keys = _.keys(value);
   const result = keys.map((key) => {
     const nestedKey = value[key];
+    if (!_.has(value, key)) {
+      return null;
+    }
     return `${setIndent(num + 1)}  ${key}: ${getString(nestedKey, num + 1)}`;
   });
-  return `{\n${result.join('\n')}\n  ${setIndent(num)}}`;
+  return `{\n${result.filter((item) => item !== null).join('\n')}\n  ${setIndent(num)}}`;
 };
 
 const stylish = (obj) => {
