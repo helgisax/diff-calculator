@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-const mknode = (key, value, type, oldValue = null) => ({
+const mknode = (key, value, type, updatedValue = null) => ({
   key,
   value,
   type,
-  oldValue,
+  updatedValue,
 });
 
 const getDiff = (obj1, obj2) => {
@@ -28,7 +28,7 @@ const getDiff = (obj1, obj2) => {
     }
 
     if (obj1[key] !== obj2[key]) {
-      return mknode(key, value2, 'updated', value1);
+      return mknode(key, [value1, value2], 'updated');
     }
 
     return mknode(key, value1, 'unchanged');
