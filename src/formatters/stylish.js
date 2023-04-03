@@ -10,7 +10,7 @@ const setIndent = (num, str = ' ') => str.repeat(num * 4 - 2);
 
 const getString = (value, num = 1) => {
   if (!_.isObject(value)) {
-    return value;
+    return typeof value === 'string' ? `'${value}'` : value;
   }
   const keys = _.keys(value);
   const result = keys.map((key) => {
