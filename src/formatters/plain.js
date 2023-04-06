@@ -31,8 +31,8 @@ const plain = (nodes) => {
       default: throw new Error(`Unknown type: ${type}`);
     }
   };
-  const result = nodes.map((node) => iter(node));
-  return `${result.join('\n')}`;
+  const result = nodes.map((node) => iter(node)).filter((x) => x !== null);
+  return result.join('\n');
 };
 
 export default plain;
