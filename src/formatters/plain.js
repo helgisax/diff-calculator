@@ -32,7 +32,7 @@ const plain = (nodes) => {
     }
   };
   const result = nodes.map((node) => iter(node));
-  return `${result.join('\n')}`;
+  return result.join('\n');
 };
 
 export default plain;
