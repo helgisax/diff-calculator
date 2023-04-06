@@ -10,7 +10,7 @@ const setIndent = (num, str = ' ') => str.repeat(num * 4 - 2);
 
 const getString = (value, num = 1) => {
   if (!_.isObject(value)) {
-    return typeof value === 'string' ? `'${value}'` : value;
+    return value;
   }
   const keys = _.keys(value);
   const result = keys.map((key) => {
@@ -26,7 +26,7 @@ const getString = (value, num = 1) => {
 const stylish = (obj) => {
   const iter = (node, num = 1) => {
     const {
-      type, key, value, oldValue, children,
+      type, key, value, updatedValue, children,
     } = node;
     switch (type) {
       case 'removed':
@@ -34,7 +34,7 @@ const stylish = (obj) => {
       case 'unchanged':
         return `${setIndent(num)}${symbols[type]} ${key}: ${getString(value, num)}`;
       case 'updated':
-        return `${setIndent(num)}${symbols.removed} ${key}: ${getString(oldValue, num)}\n${setIndent(num)}${symbols.added} ${key}: ${getString(value, num)}`;
+        return `${setIndent(num)}${symbols.removed} ${key}: ${getString(value, num)}\n${setIndent(num)}${symbols.added} ${key}: ${getString(updatedValue, num)}`;
       case 'nested': {
         const objectResult = children.flatMap((child) => iter(child, num + 1));
         return `${setIndent(num)}  ${key}: {\n${objectResult.join('\n')}\n${setIndent(num)}  }`;

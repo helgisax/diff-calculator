@@ -28,7 +28,7 @@ const getDiff = (obj1, obj2) => {
     }
 
     if (obj1[key] !== obj2[key]) {
-      return mknode(key, [value1, value2], 'updated');
+      return mknode(key, value1, 'updated', value2);
     }
 
     return mknode(key, value1, 'unchanged');
