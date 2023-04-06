@@ -19,7 +19,7 @@ const plain = (nodes) => {
     const currentPathSting = currentPath.join('.');
     switch (type) {
       case 'nested':
-        return children.flatMap((child) => iter(child, currentPath)).join('\n');
+        return children.flatMap((child) => iter(child, currentPath)).filter((x) => x !== null).join('\n');
       case 'removed':
         return `Property '${currentPathSting}' was removed`;
       case 'added':
