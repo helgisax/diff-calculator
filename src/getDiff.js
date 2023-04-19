@@ -1,11 +1,9 @@
-import _ from 'lodash';
-
-const mknode = (key, value, type, updatedValue = null) => ({
-  key,
-  value,
-  type,
-  updatedValue,
-});
+const mknode = (key, type, value, value2 = null) => {
+  if (type === 'updated') {
+    return { key, type, value: [value, value2] };
+  }
+  return { key, value, type };
+};
 
 const getDiff = (obj1, obj2) => {
   const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
@@ -27,12 +25,14 @@ const getDiff = (obj1, obj2) => {
       };
     }
 
-    if (obj1[key] !== obj2[key]) {
+    if (value1 !== value2) {
       return mknode(key, value1, 'updated', value2);
     }
 
     return mknode(key, value1, 'unchanged');
   });
+
   return nodes;
 };
+
 export default getDiff;
