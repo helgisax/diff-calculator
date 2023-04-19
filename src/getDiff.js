@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const mknode = (key, type, value, value2 = null) => {
   if (type === 'updated') {
     return { key, type, value: [value, value2] };
