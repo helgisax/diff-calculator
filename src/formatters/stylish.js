@@ -6,9 +6,9 @@ const symbols = {
   added: '+',
 };
 
-const setIndent = (num, str = ' ') => str.repeat(num * 4 - 2);
+const setIndent = (depth, str = ' ') => str.repeat(depth * 4 - 2);
 
-const getString = (value, num = 1) => {
+const getString = (value, depth = 1) => {
   if (!_.isObject(value)) {
     return value;
   }
@@ -18,13 +18,13 @@ const getString = (value, num = 1) => {
     if (!_.has(value, key)) {
       return null;
     }
-    return `${setIndent(num + 1)}  ${key}: ${getString(nestedKey, num + 1)}`;
+    return `${setIndent(depth + 1)}  ${key}: ${getString(nestedKey, depth + 1)}`;
   });
-  return `{\n${result.filter((item) => item !== null).join('\n')}\n  ${setIndent(num)}}`;
+  return `{\n${result.filter((item) => item !== null).join('\n')}\n  ${setIndent(depth)}}`;
 };
 
 const stylish = (obj) => {
-  const iter = (node, num = 1) => {
+  const iter = (node, depth = 1) => {
     const {
       type, key, value, updatedValue, children,
     } = node;
@@ -32,12 +32,12 @@ const stylish = (obj) => {
       case 'removed':
       case 'added':
       case 'unchanged':
-        return `${setIndent(num)}${symbols[type]} ${key}: ${getString(value, num)}`;
+        return `${setIndent(depth)}${symbols[type]} ${key}: ${getString(value, depth)}`;
       case 'updated':
-        return `${setIndent(num)}${symbols.removed} ${key}: ${getString(value, num)}\n${setIndent(num)}${symbols.added} ${key}: ${getString(updatedValue, num)}`;
+        return `${setIndent(depth)}${symbols.removed} ${key}: ${getString(value, depth)}\n${setIndent(depth)}${symbols.added} ${key}: ${getString(updatedValue, depth)}`;
       case 'nested': {
-        const objectResult = children.flatMap((child) => iter(child, num + 1));
-        return `${setIndent(num)}  ${key}: {\n${objectResult.join('\n')}\n${setIndent(num)}  }`;
+        const objectResult = children.flatMap((child) => iter(child, depth + 1));
+        return `${setIndent(depth)}  ${key}: {\n${objectResult.join('\n')}\n${setIndent(depth)}  }`;
       }
       default: throw new Error(`Unknown type: ${type}`);
     }

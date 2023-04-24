@@ -1,21 +1,21 @@
 import _ from 'lodash';
 
-const mknode = (key, type, value, updatedValue = null) => ({
-  key,
-  value,
-  type,
-  updatedValue,
-});
+const mknode = (key, type, value, value2 = null) => {
+  if (type === 'updated') {
+    return { key, type, value: [value, value2] };
+  }
+  return { key, type, value };
+};
 
 const getDiff = (obj1, obj2) => {
   const keys = _.sortBy(_.union(_.keys(obj1), _.keys(obj2)));
   const nodes = keys.map((key) => {
     if (!_.has(obj1, key)) {
-      return mknode(key, obj2[key], 'added');
+      return mknode(key, 'added', obj2[key]);
     }
 
     if (!_.has(obj2, key)) {
-      return mknode(key, obj1[key], 'removed');
+      return mknode(key, 'removed', obj1[key]);
     }
 
     const [value1, value2] = [obj1[key], obj2[key]];
@@ -28,10 +28,10 @@ const getDiff = (obj1, obj2) => {
     }
 
     if (obj1[key] !== obj2[key]) {
-      return mknode(key, value1, 'updated', value2);
+      return mknode(key, 'updated', value1, value2);
     }
 
-    return mknode(key, value1, 'unchanged');
+    return mknode(key, 'unchanged', value1);
   });
   return nodes;
 };
