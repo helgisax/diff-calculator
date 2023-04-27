@@ -25,7 +25,7 @@ const plain = (nodes) => {
       case 'added':
         return `Property '${currentPathSting}' was added with value: ${makeString(value)}`;
       case 'updated':
-        return `Property '${currentPathSting}' was updated. From ${makeString(value)} to ${makeString(updatedValue)}`;
+        return `Property '${currentPathSting}' was updated. From ${makeString(value[0])} to ${makeString(value[1])}`;
       case 'unchanged':
         return null;
       default: throw new Error(`Unknown type: ${type}`);

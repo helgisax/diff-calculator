@@ -34,7 +34,7 @@ const stylish = (obj) => {
       case 'unchanged':
         return `${setIndent(depth)}${symbols[type]} ${key}: ${getString(value, depth)}`;
       case 'updated':
-        return `${setIndent(depth)}${symbols.removed} ${key}: ${getString(value, depth)}\n${setIndent(depth)}${symbols.added} ${key}: ${getString(updatedValue, depth)}`;
+        return `${setIndent(depth)}${symbols.removed} ${key}: ${getString(value[0], depth)}\n${setIndent(depth)}${symbols.added} ${key}: ${getString(value[1], depth)}`;
       case 'nested': {
         const objectResult = children.flatMap((child) => iter(child, depth + 1));
         return `${setIndent(depth)}  ${key}: {\n${objectResult.join('\n')}\n${setIndent(depth)}  }`;
