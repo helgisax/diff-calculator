@@ -13,7 +13,7 @@ const makeString = (value) => {
 const plain = (nodes) => {
   const iter = (node, path = []) => {
     const {
-      type, key, value, updatedValue, children,
+      type, key, value, children,
     } = node;
     const currentPath = [...path, key];
     const currentPathSting = currentPath.join('.');

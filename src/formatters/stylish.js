@@ -26,7 +26,7 @@ const getString = (value, depth = 1) => {
 const stylish = (obj) => {
   const iter = (node, depth = 1) => {
     const {
-      type, key, value, updatedValue, children,
+      type, key, value, children,
     } = node;
     switch (type) {
       case 'removed':
