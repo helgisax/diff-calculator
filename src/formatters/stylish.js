@@ -25,17 +25,20 @@ const getString = (value, depth = 1) => {
 
 const stylish = (obj) => {
   const iter = (node, depth = 1) => {
-    const {
-      type, key, value, children,
-    } = node;
+    const { type, key } = node;
     switch (type) {
       case 'removed':
       case 'added':
-      case 'unchanged':
+      case 'unchanged': {
+        const { value } = node;
         return `${setIndent(depth)}${symbols[type]} ${key}: ${getString(value, depth)}`;
-      case 'updated':
-        return `${setIndent(depth)}${symbols.removed} ${key}: ${getString(value[0], depth)}\n${setIndent(depth)}${symbols.added} ${key}: ${getString(value[1], depth)}`;
+      }
+      case 'updated': {
+        const { value: [oldValue, newValue] } = node;
+        return `${setIndent(depth)}${symbols.removed} ${key}: ${getString(oldValue, depth)}\n${setIndent(depth)}${symbols.added} ${key}: ${getString(newValue, depth)}`;
+      }
       case 'nested': {
+        const { children } = node;
         const objectResult = children.flatMap((child) => iter(child, depth + 1));
         return `${setIndent(depth)}  ${key}: {\n${objectResult.join('\n')}\n${setIndent(depth)}  }`;
       }
