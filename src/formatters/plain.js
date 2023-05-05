@@ -12,20 +12,24 @@ const makeString = (value) => {
 
 const plain = (nodes) => {
   const iter = (node, path = []) => {
-    const {
-      type, key, value, children,
-    } = node;
+    const { type, key } = node;
     const currentPath = [...path, key];
     const currentPathSting = currentPath.join('.');
     switch (type) {
-      case 'nested':
+      case 'nested': {
+        const { children } = node;
         return children.flatMap((child) => iter(child, currentPath)).filter((x) => x !== null).join('\n');
+      }
       case 'removed':
         return `Property '${currentPathSting}' was removed`;
-      case 'added':
+      case 'added': {
+        const { value } = node;
         return `Property '${currentPathSting}' was added with value: ${makeString(value)}`;
-      case 'updated':
+      }
+      case 'updated': {
+        const { value } = node;
         return `Property '${currentPathSting}' was updated. From ${makeString(value[0])} to ${makeString(value[1])}`;
+      }
       case 'unchanged':
         return null;
       default: throw new Error(`Unknown type: ${type}`);
