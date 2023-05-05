@@ -10,25 +10,27 @@ const makeString = (value) => {
   return String(value);
 };
 
+const getPropertyName = (property, parents) => [...parents, property].join('.');
+
 const plain = (nodes) => {
   const iter = (node, path = []) => {
     const { type, key } = node;
     const currentPath = [...path, key];
-    const currentPathSting = currentPath.join('.');
+    const currentPathString = getPropertyName(key, path);
     switch (type) {
       case 'nested': {
         const { children } = node;
         return children.flatMap((child) => iter(child, currentPath)).filter((x) => x !== null).join('\n');
       }
       case 'removed':
-        return `Property '${currentPathSting}' was removed`;
+        return `Property '${currentPathString}' was removed`;
       case 'added': {
         const { value } = node;
-        return `Property '${currentPathSting}' was added with value: ${makeString(value)}`;
+        return `Property '${currentPathString}' was added with value: ${makeString(value)}`;
       }
       case 'updated': {
         const { value } = node;
-        return `Property '${currentPathSting}' was updated. From ${makeString(value[0])} to ${makeString(value[1])}`;
+        return `Property '${currentPathString}' was updated. From ${makeString(value[0])} to ${makeString(value[1])}`;
       }
       case 'unchanged':
         return null;
