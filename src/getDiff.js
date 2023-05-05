@@ -19,7 +19,7 @@ const getDiff = (obj1, obj2) => {
     }
 
     const [value1, value2] = [obj1[key], obj2[key]];
-    if (_.isObject(value1) && _.isObject(value2)) {
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
       return {
         type: 'nested',
         key,
