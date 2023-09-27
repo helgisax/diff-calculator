@@ -10,8 +10,8 @@ A difference calculator is a program that determines the difference between two 
 
 ## Start:
 
- - Clone this repository with 'git clone git@github.com:helgisax/frontend-project-46.git' command;
- - Go to the directory 'frontend-project-46' with command 'cd frontend-project-46';
+ - Clone this repository with 'git clone git@github.com:helgisax/diff-calculator.git' command;
+ - Go to the directory 'diff-calculator' with command 'cd diff-calculator';
  - Use 'make install' command;
  - And use 'npm link' command.
 
